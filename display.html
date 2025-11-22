@@ -24,22 +24,37 @@
 <body>
   <div id="text">等待指令...</div>
 
-  <!-- Firebase SDK -->
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
   <script>
-    // TODO: 这里换成你自己的 Firebase 配置
-   const firebaseConfig = {
-  apiKey: "AIzaSyASzMmdauqMn85tg52znvsqGDwP8LK5QTg",
-  authDomain: "remote-screen-8aa0d.firebaseapp.com",
-  databaseURL: "https://remote-screen-8aa0d-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "remote-screen-8aa0d",
-  storageBucket: "remote-screen-8aa0d.firebasestorage.app",
-  messagingSenderId: "800208217554",
-  appId: "1:800208217554:web:4dcf39b0535b99c5f2140b",
-  measurementId: "G-MK0T3MJ6H1"
-};
-
+    const firebaseConfig = {
+      apiKey: "AIzaSyASzMmdauqMn85tg52znvsqGDwP8LK5QTg",
+      authDomain: "remote-screen-8aa0d.firebaseapp.com",
+      databaseURL: "https://remote-screen-8aa0d-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "remote-screen-8aa0d",
+      storageBucket: "remote-screen-8aa0d.firebasestorage.app",
+      messagingSenderId: "800208217554",
+      appId: "1:800208217554:web:4dcf39b0535b99c5f2140b",
+      measurementId: "G-MK0T3MJ6H1"
+    };
 
     firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const channelRef = db.ref("channels/remote-test");
+
+    channelRef.on("value", (snapshot) => {
+      const data = snapshot.val();
+      if (!data) return;
+
+      document.getElementById("text").textContent = data.text || "";
+
+      if (data.sound) {
+        const audio = new Audio(`https://actions.google.com/sounds/v1/alarms/${data.sound}.mp3`);
+        audio.play();
+      }
+    });
+  </script>
+</body>
+</html>
