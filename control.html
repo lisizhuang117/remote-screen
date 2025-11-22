@@ -8,25 +8,22 @@
     button {
       display: block;
       margin: 8px 0;
-      padding: 12px 20px;    
+      padding: 12px 20px;
       font-size: 20px;
       cursor: pointer;
     }
-    h2, h3 {
-      margin-top: 20px;
-    }
   </style>
 </head>
-<body>
 
+<body>
   <h2>远程控制面板</h2>
 
   <button onclick="send('Try me', 'tryme')">Try me（含声音）</button>
 
   <h3>价格：</h3>
-  <button onclick="send('price：23', 'p23')">price：23</button>
-  <button onclick="send('price：60', 'p60')">price：60</button>
-  <button onclick="send('price：55', 'p55')">price：55</button>
+  <button onclick="send('price：23', null)">price：23</button>
+  <button onclick="send('price：60', null)">price：60</button>
+  <button onclick="send('price：55', null)">price：55</button>
 
   <h3>Memory of Leuven：</h3>
   <button onclick="send(`你为“Memory of Leuven 展区”贡献了2本书，20%的学生做出了同样选择，
@@ -34,23 +31,21 @@
 所有学生的选择构成了这样的馆藏：
 Academic vs Popular █████░░░░░ 50% : 50%。`, null)">展示全文</button>
 
-  <!-- Firebase SDK -->
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
   <script>
-    // TODO: 这里也要换成同一份 Firebase 配置
-const firebaseConfig = {
-  apiKey: "AIzaSyASzMmdauqMn85tg52znvsqGDwP8LK5QTg",
-  authDomain: "remote-screen-8aa0d.firebaseapp.com",
-  databaseURL: "https://remote-screen-8aa0d-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "remote-screen-8aa0d",
-  storageBucket: "remote-screen-8aa0d.firebasestorage.app",
-  messagingSenderId: "800208217554",
-  appId: "1:800208217554:web:4dcf39b0535b99c5f2140b",
-  measurementId: "G-MK0T3MJ6H1"
-};
-
+    const firebaseConfig = {
+      apiKey: "AIzaSyASzMmdauqMn85tg52znvsqGDwP8LK5QTg",
+      authDomain: "remote-screen-8aa0d.firebaseapp.com",
+      databaseURL: "https://remote-screen-8aa0d-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "remote-screen-8aa0d",
+      storageBucket: "remote-screen-8aa0d.firebasestorage.app",
+      messagingSenderId: "800208217554",
+      appId: "1:800208217554:web:4dcf39b0535b99c5f2140b",
+      measurementId: "G-MK0T3MJ6H1"
+    };
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
@@ -58,7 +53,7 @@ const firebaseConfig = {
 
     function send(text, sound) {
       channelRef.set({
-        text: text,
+        text,
         sound: sound || null,
         ts: Date.now()
       });
