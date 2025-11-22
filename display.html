@@ -1,51 +1,43 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<meta charset="UTF-8" />
-<title>Display</title>
-<style>
-body {
-  margin: 0;
-  font-family: Arial;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #fff;
-}
-#text {
-  font-size: 48px;
-  text-align: center;
-  padding: 20px;
-  white-space: pre-wrap;
-}
-</style>
+  <meta charset="UTF-8" />
+  <title>Display</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #ffffff;
+    }
+    #text {
+      font-size: 48px;
+      text-align: center;
+      padding: 20px;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
 <body>
-<div id="text">等待指令...</div>
+  <div id="text">等待指令...</div>
 
-<script>
-const ws = new WebSocket("wss://echo.websocket.events");
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
-// Base64 随机 beep 声（模拟音效）
-const sounds = {
-  tryme: new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YRAAAAAA//8AAP//AAD//wA="),
-  p23:  new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YRAAAAAA//8AAAD//wAA//8="),
-  p60:  new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YRAAAAAAAAD//wD//wAA//8="),
-  p55:  new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YRAAAAAAAAD//wAA//8A//8=")
-};
+  <script>
+    // TODO: 这里换成你自己的 Firebase 配置
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      databaseURL: "https://YOUR_DATABASE_NAME.europe-west1.firebasedatabase.app",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
 
-ws.onmessage = (msg) => {
-  const data = JSON.parse(msg.data);
-
-  // 更新文字
-  document.getElementById("text").innerText = data.text;
-
-  // 播放声音
-  if (data.sound && sounds[data.sound]) {
-    sounds[data.sound].play();
-  }
-};
-</script>
-</body>
-</html>
+    firebase.initializeApp(firebaseConfig);
