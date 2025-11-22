@@ -8,7 +8,7 @@
     button {
       display: block;
       margin: 8px 0;
-      padding: 12px 20px;
+      padding: 12px 20px;    
       font-size: 20px;
       cursor: pointer;
     }
@@ -40,15 +40,17 @@ Academic vs Popular █████░░░░░ 50% : 50%。`, null)">展示�
 
   <script>
     // TODO: 这里也要换成同一份 Firebase 配置
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      databaseURL: "https://YOUR_DATABASE_NAME.europe-west1.firebasedatabase.app",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyASzMmdauqMn85tg52znvsqGDwP8LK5QTg",
+  authDomain: "remote-screen-8aa0d.firebaseapp.com",
+  databaseURL: "https://remote-screen-8aa0d-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "remote-screen-8aa0d",
+  storageBucket: "remote-screen-8aa0d.firebasestorage.app",
+  messagingSenderId: "800208217554",
+  appId: "1:800208217554:web:4dcf39b0535b99c5f2140b",
+  measurementId: "G-MK0T3MJ6H1"
+};
+
 
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
