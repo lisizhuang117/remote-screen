@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<title>Display</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #fff;
+}
+#text {
+  font-size: 48px;
+  text-align: center;
+  padding: 20px;
+  white-space: pre-wrap;
+}
+</style>
+</head>
+<body>
+<div id="text">等待指令...</div>
+
+<script>
+const ws = new WebSocket("wss://socketsbay.com/wss/v2/2/demo/");
+
+// Base64 随机 beep 声（模拟音效）
+const sounds = {
+  tryme: new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YRAAAAAA//8AAP//AAD//wA="),
+  p23:  new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YRAAAAAA//8AAAD//wAA//8="),
+  p60:  new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YRAAAAAAAAD//wD//wAA//8="),
+  p55:  new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YRAAAAAAAAD//wAA//8A//8=")
+};
+
+ws.onmessage = (msg) => {
+  const data = JSON.parse(msg.data);
+
+  // 更新文字
+  document.getElementById("text").innerText = data.text;
+
+  // 播放声音
+  if (data.sound && sounds[data.sound]) {
+    sounds[data.sound].play();
+  }
+};
+</script>
+</body>
+</html>
