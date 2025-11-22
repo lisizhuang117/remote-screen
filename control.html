@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<title>Control</title>
+<style>
+body { font-family: Arial; padding: 20px; }
+button {
+  display: block;
+  margin: 8px 0;
+  padding: 12px 20px;
+  font-size: 20px;
+}
+</style>
+</head>
+<body>
+
+<h2>远程控制面板</h2>
+
+<button onclick="send('Try me', 'tryme')">Try me（含声音）</button>
+
+<h3>价格：</h3>
+<button onclick="send('price：23', 'p23')">price：23</button>
+<button onclick="send('price：60', 'p60')">price：60</button>
+<button onclick="send('price：55', 'p55')">price：55</button>
+
+<h3>Memory of Leuven：</h3>
+<button onclick="send(`你为“Memory of Leuven 展区”贡献了2本书，20%的学生做出了同样选择，
+它将成为'鲁汶记忆'的核心符号。
+所有学生的选择构成了这样的馆藏：
+Academic vs Popular █████░░░░░ 50% : 50%。`, null)">展示全文</button>
+
+<script>
+const ws = new WebSocket("wss://socketsbay.com/wss/v2/2/demo/");
+
+function send(text, sound) {
+  ws.send(JSON.stringify({
+    text: text,
+    sound: sound
+  }));
+}
+</script>
+
+</body>
+</html>
