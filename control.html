@@ -31,7 +31,7 @@ button {
 Academic vs Popular █████░░░░░ 50% : 50%。`, null)">展示全文</button>
 
 <script>
-const ws = new WebSocket("wss://socketsbay.com/wss/v2/2/demo/");
+const ws = new WebSocket("wss://echo.websocket.events");
 
 function send(text, sound) {
   ws.send(JSON.stringify({
